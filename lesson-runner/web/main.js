@@ -88,6 +88,47 @@ paneLeft.className = "pane-left";
 paneLabel.before(paneLeft);
 paneLeft.append(paneLabel, backtraceLabel);
 
+// Step options: one checkbox for each option(...) line in the step's CMakeLists.txt. Each checkbox starts at the default
+// the step declares, and the choices are kept for this session only, so a restart returns them to the defaults.
+const optionChoices = new Map();
+const optionsGroup = document.createElement("span");
+optionsGroup.className = "step-options";
+optionsGroup.style.marginLeft = "24px";
+paneLeft.append(optionsGroup);
+
+function optionKey(step, name) {
+  return step.path + "\u0000" + name;
+}
+
+function renderStepOptions(step) {
+  optionsGroup.replaceChildren();
+  for (const option of step.options ?? []) {
+    const label = document.createElement("label");
+    label.dataset.tip = option.description;
+    label.style.fontSize = "12px";
+    label.style.fontWeight = "normal";
+    label.style.letterSpacing = "normal";
+    label.style.marginRight = "16px";
+    const box = document.createElement("input");
+    box.type = "checkbox";
+    const key = optionKey(step, option.name);
+    box.checked = optionChoices.has(key) ? optionChoices.get(key) : option.default;
+    box.addEventListener("change", () => optionChoices.set(key, box.checked));
+    label.append(box, " " + option.name);
+    optionsGroup.append(label);
+  }
+}
+
+// The current value of each option the step declares, as name: true or false, for the run request.
+function stepOptionValues(step) {
+  const values = {};
+  for (const option of step.options ?? []) {
+    const key = optionKey(step, option.name);
+    values[option.name] = optionChoices.has(key) ? optionChoices.get(key) : option.default;
+  }
+  return values;
+}
+
 let chapters = [];
 let selectedChapter = null;
 let selectedStep = null;
@@ -356,6 +397,7 @@ async function selectStep(chapter, step) {
     clearOutputFiles();
   }
   selectedStep = step;
+  renderStepOptions(step);
   titleEl.textContent = step.title;
   subtitleEl.textContent = homeworkMode ? `${chapter.title} · Homework` : selectedSection ? selectedSection.title : chapter.title;
   spoilerHidden = homeworkMode && !isRevealed(step);
@@ -557,7 +599,7 @@ async function run(mode, args = []) {
   const mainText = currentFile === "main.cpp" ? editor.value : mainDraft ?? originalMain;
   const edited = mainText !== originalMain ? mainText : null;
   try {
-    await invoke("run_step", { path: selectedStep.path, source: edited, backtrace: backtraceToggle.checked, test: kind === "test", args });
+    await invoke("run_step", { path: selectedStep.path, source: edited, backtrace: backtraceToggle.checked, test: kind === "test", args, options: stepOptionValues(selectedStep) });
   } catch (error) {
     appendOutput(`${error}\n`, "stderr");
     running = false;

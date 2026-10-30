@@ -115,6 +115,11 @@ json Router::handle(const std::string& command, const json& args) {
         }
         request.backtrace = args.value("backtrace", false);
         request.test = args.value("test", false);
+        if (args.contains("options") && args.at("options").is_object()) {
+            for (const auto& [name, value] : args.at("options").items()) {
+                request.options.emplace_back(name, value.get<bool>());
+            }
+        }
         for (const json& arg : args.value("args", json::array())) {
             request.args.push_back(arg.get<std::string>());
         }

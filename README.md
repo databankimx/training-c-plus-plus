@@ -179,6 +179,14 @@ training-cpp/
 |- ch13-headers/                 - Chapter 13: headers, include guards, and multiple files
 |- ch14-containers/               - Chapter 14: vectors, maps, unordered maps, and choosing a container
 |- ch15-efficiency/               - Chapter 15: counting operations, Big-O, and Fibonacci with and without memory
+|- ch16-searching-and-sorting/    - Chapter 16: linear and binary search, the sorts, and the standard library versions
+|- ch17-raii-and-smart-pointers/  - Chapter 17: destructors, unique and shared pointers, and RAII
+|- ch18-move-semantics/           - Chapter 18: copies and moves, std::move, and moving ownership
+|- ch19-templates/                 - Chapter 19: function templates and class templates
+|- ch20-lambdas/                    - Chapter 20: lambda basics, captures, and comparisons for the standard algorithms
+|- ch21-testing/                    - Chapter 21: checking results, running tests with CTest
+|- ch22-concurrency/                - Chapter 22: threads, join, mutexes, and lock_guard
+|- ch23-build-systems/              - Chapter 23: library targets, and options
 |- ...                           - Further chapters, as they are written
 |- lesson-runner/                - The desktop lesson runner
 |  |- host/                      - C++ back end: window, router, runner, discovery
@@ -197,7 +205,7 @@ Each chapter folder holds its sections, and each section holds its steps. A step
 |---|---|---|
 | I - Basics | Getting started, variables and input, decisions, arrays, references and pointers, loops | Complete. Chapters 1 to 6 are written |
 | II - Structuring programs | Functions, files, exceptions, structures, classes, inheritance and polymorphism, headers and multiple files | Complete. Chapters 7 to 13 are written |
-| III - Additional topics | Containers, iterators and algorithms, RAII and smart pointers, move semantics, templates, lambdas, testing, concurrency, build systems, debugging and sanitizers, modern features | In progress. Chapters 14 and 15 (containers, efficiency) are written. Next: searching and sorting |
+| III - Additional topics | Containers, iterators and algorithms, RAII and smart pointers, move semantics, templates, lambdas, testing, concurrency, build systems, debugging and sanitizers, modern features | In progress. Chapters 14 to 23 (containers, efficiency, searching and sorting, RAII and smart pointers, move semantics, templates, lambdas, testing, concurrency, build systems) are written. Next: debugging and sanitizers |
 | Final project | A calculator, in two tracks: a core and bonus items | Planned |
 
 The outline is a plan and may change as the lessons are written.
@@ -218,6 +226,13 @@ This training curriculum was developed for internal use at DataBank. As with the
 |---|---|
 | 10/29/2026 | Initial version: the lesson runner, the setup and quickstart guides, the authoring guide, a placeholder chapter for checking the runner, and the calculator final-project homework |
 | 10/29/2026 | Chapters 8 to 13 added: files, exceptions, structures, classes, inheritance and polymorphism, and headers and multiple files. Part I is complete |
+| 10/29/2026 | Chapters 14 to 17 added: containers, efficiency, searching and sorting, and RAII and smart pointers. Part III is in progress |
+| 10/29/2026 | Chapter 18 added: copies and moves, and moving ownership. Part III is in progress |
+| 10/29/2026 | Chapter 19 added: function templates and class templates. Part III is in progress |
+| 10/29/2026 | Chapter 20 added: lambda basics, and captures. Part III is in progress |
+| 10/29/2026 | Chapter 21 added: checking results, and running tests with CTest. Part III is in progress |
+| 10/29/2026 | Chapter 22 added: threads, and mutexes. Part III is in progress |
+| 10/29/2026 | Chapter 23 added: library targets, and options. Part III is in progress |
 
 ---
 

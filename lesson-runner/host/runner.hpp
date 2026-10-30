@@ -31,6 +31,7 @@ struct RunRequest {
     bool backtrace = false;             // Builds with stack-trace support.
     bool test = false;                  // Runs the step's tests instead of its program.
     std::vector<std::string> args;      // Leading NAME=value items become environment variables for the run.
+    std::vector<std::pair<std::string, bool>> options;  // The page's checkboxes: each option the step declares, on or off.
 };
 
 class Runner {

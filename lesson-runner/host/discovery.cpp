@@ -270,6 +270,7 @@ std::vector<Step> steps_in(const fs::path& folder) {
         step.has_tests = has_tests;
         step.has_main = has_main;
         step.has_visualizer = fs::is_regular_file(path / "visualize.html", ignored);
+        step.options = read_step_options(path / "CMakeLists.txt");
         steps.push_back(std::move(step));
     }
 
@@ -395,6 +396,40 @@ nlohmann::json list_parts(const fs::path& root) {
     return parts;
 }
 
+std::vector<StepOption> read_step_options(const fs::path& cmake_file) {
+    std::vector<StepOption> options;
+    std::ifstream in(cmake_file);
+    std::string line;
+    while (std::getline(in, line)) {
+        const std::size_t start = line.find_first_not_of(" \t");
+        if (start == std::string::npos) continue;
+        const std::string text = line.substr(start);
+        if (text.rfind("option(", 0) != 0) continue;
+
+        // option(NAME "description" ON), where NAME ends at the first space, tab, or quote.
+        const std::size_t nameEnd = text.find_first_of(" \t\"", 7);
+        if (nameEnd == std::string::npos) continue;
+        const std::string name = text.substr(7, nameEnd - 7);
+        if (name.empty()) continue;
+
+        const std::size_t quoteOpen = text.find('"', nameEnd);
+        if (quoteOpen == std::string::npos) continue;
+        const std::size_t quoteClose = text.find('"', quoteOpen + 1);
+        if (quoteClose == std::string::npos) continue;
+        const std::string description = text.substr(quoteOpen + 1, quoteClose - quoteOpen - 1);
+
+        const std::size_t close = text.find(')', quoteClose);
+        std::string value = text.substr(quoteClose + 1,
+                                        close == std::string::npos ? std::string::npos : close - quoteClose - 1);
+        const std::size_t first = value.find_first_not_of(" \t");
+        const std::size_t last = value.find_last_not_of(" \t");
+        value = first == std::string::npos ? std::string() : value.substr(first, last - first + 1);
+
+        options.push_back(StepOption{name, description, value == "ON"});
+    }
+    return options;
+}
+
 std::filesystem::path work_root(const fs::path& repo_root) {
     return repo_root / ".lesson-runner" / "work";
 }
@@ -409,6 +444,10 @@ void to_json(nlohmann::json& j, const Step& step) {
         {"has_main", step.has_main},
         {"has_visualizer", step.has_visualizer},
     };
+    j["options"] = json::array();
+    for (const StepOption& option : step.options) {
+        j["options"].push_back(json{{"name", option.name}, {"description", option.description}, {"default", option.default_on}});
+    }
 }
 
 void to_json(nlohmann::json& j, const Section& section) {

@@ -209,7 +209,13 @@ void Runner::Work(RunRequest request, std::vector<std::pair<std::string, std::st
     const std::wstring configure = L"cmake -S " + quoted(folder) + L" -B " + quoted(build) +
                                    L" -G Ninja -DCMAKE_CXX_COMPILER=g++ -DCMAKE_BUILD_TYPE=Debug -DLESSON_BACKTRACE=" +
                                    (request.backtrace ? L"ON" : L"OFF");
-    if (phase_failed(RunChild(configure, folder, false, "CMake"))) return;
+    // Every option the step declares is passed on every configure, ON or OFF, so a value from an earlier run can't
+    // linger in the build's cache.
+    std::wstring configureWithOptions = configure;
+    for (const auto& [option, on] : request.options) {
+        configureWithOptions += L" -D" + utf8_to_wide(option) + (on ? L"=ON" : L"=OFF");
+    }
+    if (phase_failed(RunChild(configureWithOptions, folder, false, "CMake"))) return;
 
     status("Building " + name + "...");
     if (phase_failed(RunChild(L"cmake --build " + quoted(build), folder, false, "CMake"))) return;

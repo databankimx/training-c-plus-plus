@@ -12,6 +12,13 @@
 
 namespace lesson {
 
+// The options a step declares with option(NAME "description" ON|OFF) in its CMakeLists.txt.
+struct StepOption {
+    std::string name;
+    std::string description;
+    bool default_on = false;
+};
+
 struct Step {
     std::string name;
     std::string title;
@@ -20,6 +27,7 @@ struct Step {
     bool has_tests = false;
     bool has_main = false;
     bool has_visualizer = false;
+    std::vector<StepOption> options;  // The option(...) lines in the step's CMakeLists.txt, for the page's checkboxes.
 };
 
 struct Section {
@@ -53,6 +61,9 @@ nlohmann::json list_parts(const std::filesystem::path& root);
 // The folder where runs are built and run: a fixed place inside the repository, so one folder exclusion in a
 // security product covers every run. It is ignored by git.
 std::filesystem::path work_root(const std::filesystem::path& repo_root);
+
+// Reads the option(...) lines of a step's CMakeLists.txt. Commented lines are skipped.
+std::vector<StepOption> read_step_options(const std::filesystem::path& cmake_file);
 
 void to_json(nlohmann::json& j, const Step& step);
 void to_json(nlohmann::json& j, const Section& section);
