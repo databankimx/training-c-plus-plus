@@ -32,6 +32,6 @@ void open_external(const std::string& url);
 
 // Opens a file from a run's work folder in the default application for its type. Files outside that folder are
 // refused. Throws on refusal or failure.
-void open_file(const std::string& path);
+void open_file(const std::string& path, const std::filesystem::path& work_folder);
 
 }  // namespace lesson

@@ -1,6 +1,7 @@
 // runner.cpp: see runner.hpp.
 
 #include "runner.hpp"
+#include "discovery.hpp"
 
 #include <cctype>
 #include <cstddef>
@@ -156,9 +157,9 @@ void Runner::Finish(std::optional<unsigned long> code) {
     Emit("run-finished", payload);
 }
 
-// Copies the step to a temporary folder, without its build folder, and writes the edited main.cpp into it.
+// Copies the step to the run's work folder, without its build folder, and writes the edited main.cpp into it.
 fs::path Runner::PrepareWorkCopy(const RunRequest& request) {
-    const fs::path work = fs::temp_directory_path() / "lesson-runner" / "work" / request.step.filename();
+    const fs::path work = work_root(repo_root_) / request.step.filename();
     fs::create_directories(work);
     for (const auto& entry : fs::directory_iterator(request.step)) {
         if (entry.path().filename() == "build") continue;
@@ -208,14 +209,14 @@ void Runner::Work(RunRequest request, std::vector<std::pair<std::string, std::st
     const std::wstring configure = L"cmake -S " + quoted(folder) + L" -B " + quoted(build) +
                                    L" -G Ninja -DCMAKE_CXX_COMPILER=g++ -DCMAKE_BUILD_TYPE=Debug -DLESSON_BACKTRACE=" +
                                    (request.backtrace ? L"ON" : L"OFF");
-    if (phase_failed(RunChild(configure, folder, false))) return;
+    if (phase_failed(RunChild(configure, folder, false, "CMake"))) return;
 
     status("Building " + name + "...");
-    if (phase_failed(RunChild(L"cmake --build " + quoted(build), folder, false))) return;
+    if (phase_failed(RunChild(L"cmake --build " + quoted(build), folder, false, "CMake"))) return;
 
     if (request.test) {
         status("Testing " + name + "...");
-        const auto code = RunChild(L"ctest --test-dir " + quoted(build) + L" --output-on-failure", folder, false);
+        const auto code = RunChild(L"ctest --test-dir " + quoted(build) + L" --output-on-failure", folder, false, "CTest");
         if (cancelled_) {
             Finish(std::nullopt);
         } else {
@@ -244,7 +245,7 @@ void Runner::Work(RunRequest request, std::vector<std::pair<std::string, std::st
     status("Running program.exe");
     // A blank line sets the program's output off from the build lines above it.
     Emit("run-output", json{{"stream", "stdout"}, {"text", "\n"}});
-    const auto code = RunChild(command, folder, true);
+    const auto code = RunChild(command, folder, true, "program.exe");
     for (const auto& [variable, value] : environment) {
         SetEnvironmentVariableW(utf8_to_wide(variable).c_str(), nullptr);
     }
@@ -262,7 +263,7 @@ void Runner::Work(RunRequest request, std::vector<std::pair<std::string, std::st
 // Runs one process with its output on pipes, and waits for it. Returns its exit code, or nothing if it couldn't start.
 // When interactive, its standard input is a pipe that SendInput writes to. Otherwise the input is empty.
 std::optional<unsigned long> Runner::RunChild(const std::wstring& command_line, const fs::path& folder,
-                                              bool interactive) {
+                                              bool interactive, const std::string& what) {
     SECURITY_ATTRIBUTES inherit{sizeof(SECURITY_ATTRIBUTES), nullptr, TRUE};
     HANDLE out_read = nullptr, out_write = nullptr, err_read = nullptr, err_write = nullptr;
     HANDLE in_read = nullptr, in_write = nullptr;
@@ -316,7 +317,14 @@ std::optional<unsigned long> Runner::RunChild(const std::wstring& command_line, 
                                         &process);
     if (!started) {
         CloseHandle(job);
-        return fail("Could not start a build tool. Is the toolchain installed in C:\\msys64\\ucrt64?");
+        // Only the step's own program is run interactively, so the other runs are build tools. The advice differs:
+        // a program that was built but won't start is usually blocked by security software, and a build tool that won't
+        // start points at the toolchain.
+        if (interactive) {
+            return fail(("Windows would not start " + what + ". It was built, but security software may have blocked or "
+                         "removed it. See the troubleshooting section of QUICKSTART").c_str());
+        }
+        return fail(("Could not start " + what + ". Is the toolchain installed in C:\\msys64\\ucrt64?").c_str());
     }
 
     // The children have their own copies now, so the parent closes its copies of their ends.

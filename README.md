@@ -108,7 +108,7 @@ The lesson runner is a desktop window, built with C++ and WebView2. It lets you 
 
 #### Finding lessons
 
-The chapter list on the left shows each chapter, such as *Ch01 · Basics*. Click a chapter to show its steps, then click a step to open it.
+The chapter list on the left shows each chapter, such as *Ch01 · Getting Started*. Click a chapter to show its steps, then click a step to open it.
 
 - Chapters are listed in order. The final project comes after the numbered chapters.
 - Each step is one folder. A step with a `CMakeLists.txt` has code you can run.
@@ -171,6 +171,14 @@ training-cpp/
 |- ch05-references-and-pointers/ - Chapter 5: references, pointers, and pointers with arrays
 |- ch06-loops/                   - Chapter 6: loops, break and continue, and a Battleship game
 |- ch07-functions/               - Chapter 7: functions, parameters, return values, arrays, reference parameters, and recursion
+|- ch08-files/                   - Chapter 8: writing, reading, and overwriting files
+|- ch09-exceptions/              - Chapter 9: throwing values, error codes, and standard exceptions
+|- ch10-structures/              - Chapter 10: structures, structures in functions, and initializing structures
+|- ch11-classes/                 - Chapter 11: classes, methods, constructors, and encapsulation
+|- ch12-inheritance/             - Chapter 12: inheritance, protected members, and polymorphism
+|- ch13-headers/                 - Chapter 13: headers, include guards, and multiple files
+|- ch14-containers/               - Chapter 14: vectors, maps, unordered maps, and choosing a container
+|- ch15-efficiency/               - Chapter 15: counting operations, Big-O, and Fibonacci with and without memory
 |- ...                           - Further chapters, as they are written
 |- lesson-runner/                - The desktop lesson runner
 |  |- host/                      - C++ back end: window, router, runner, discovery
@@ -187,9 +195,9 @@ Each chapter folder holds its sections, and each section holds its steps. A step
 
 | Part | Chapters | Status |
 |---|---|---|
-| I - Basics | Getting started, variables and input, decisions, arrays, references and pointers, loops, functions, structures, classes, inheritance and polymorphism, headers and multiple files | In progress. Chapters 1 to 7 are written. The remaining chapters are planned, and the earlier tutorial's examples will be converted into them |
-| II - Standard library | Files, exceptions, containers, iterators and algorithms, RAII and smart pointers, move semantics, templates, lambdas, testing, concurrency | Planned |
-| III - Beyond the book | Build systems, debugging and sanitizers, modern features, projects | Planned |
+| I - Basics | Getting started, variables and input, decisions, arrays, references and pointers, loops | Complete. Chapters 1 to 6 are written |
+| II - Structuring programs | Functions, files, exceptions, structures, classes, inheritance and polymorphism, headers and multiple files | Complete. Chapters 7 to 13 are written |
+| III - Additional topics | Containers, iterators and algorithms, RAII and smart pointers, move semantics, templates, lambdas, testing, concurrency, build systems, debugging and sanitizers, modern features | In progress. Chapters 14 and 15 (containers, efficiency) are written. Next: searching and sorting |
 | Final project | A calculator, in two tracks: a core and bonus items | Planned |
 
 The outline is a plan and may change as the lessons are written.
@@ -209,6 +217,7 @@ This training curriculum was developed for internal use at DataBank. As with the
 | Date | Changes |
 |---|---|
 | 10/29/2026 | Initial version: the lesson runner, the setup and quickstart guides, the authoring guide, a placeholder chapter for checking the runner, and the calculator final-project homework |
+| 10/29/2026 | Chapters 8 to 13 added: files, exceptions, structures, classes, inheritance and polymorphism, and headers and multiple files. Part I is complete |
 
 ---
 

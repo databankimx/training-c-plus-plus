@@ -50,6 +50,30 @@ Without a constructor, a class gets a default one that takes no arguments, and i
 
 The structures chapter used `Settings b{"Scott", 9, true};`, which set the members in order. A class with a constructor works differently: the braces call the constructor with those values, so the constructor's rules apply. The try in this step shows the result. The constructor takes three arguments, so a list of three values matches it. A class with a constructor doesn't accept a list that the constructor doesn't match.
 
+### Passing arguments to a base class
+
+When a class inherits from another, its constructor has to build the base part first. The colon after the constructor's parameter list names the base class, and passes it the arguments it needs:
+
+```cpp
+class Car {
+public:
+    Car(std::string mk, std::string mod, int yr);
+    // ...
+};
+
+class ElectricCar : public Car {
+public:
+    ElectricCar(std::string mk, std::string mod, int yr)
+        : Car(mk, mod, yr) {
+        // the setup for ElectricCar itself goes here
+    }
+};
+```
+
+The base constructor runs first, with the values after the colon, and then the body of the derived constructor runs. The body can rely on the base part already being complete. If the derived class has no constructor of its own, the base's constructor is called in the same way, by the compiler, with no arguments, so the base must have a constructor that takes none.
+
+You'll see this form in the combining-classes step of the headers chapter, where `ElectricCar` passes its make, model, and year to `Car`.
+
 ### A constructor isn't a method
 
 A constructor is called by creating an object, not by calling `myCar.Car(...)`. It runs once per object, and it doesn't return a value. Methods are called on existing objects, and they can be called many times. The two look similar, since both are functions inside a class, but their jobs are different.

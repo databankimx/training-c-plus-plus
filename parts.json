@@ -1,0 +1,34 @@
+{
+  "parts": [
+    {
+      "title": "Part I - Basics",
+      "chapters": [
+        "ch01-getting-started",
+        "ch02-variables-and-input",
+        "ch03-decisions",
+        "ch04-arrays",
+        "ch05-references-and-pointers",
+        "ch06-loops"
+      ]
+    },
+    {
+      "title": "Part II - Structuring programs",
+      "chapters": [
+        "ch07-functions",
+        "ch08-files",
+        "ch09-exceptions",
+        "ch10-structures",
+        "ch11-classes",
+        "ch12-inheritance",
+        "ch13-headers"
+      ]
+    },
+    {
+      "title": "Part III - Additional topics",
+      "chapters": [
+        "ch14-containers",
+        "ch15-efficiency"
+      ]
+    }
+  ]
+}

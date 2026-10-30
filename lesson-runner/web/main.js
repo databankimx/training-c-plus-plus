@@ -32,6 +32,18 @@ const copyOutputButton = document.querySelector("#copy-output");
 const copySourceButton = document.querySelector("#copy-source");
 const popoutButton = document.querySelector("#popout");
 
+// Visualize: opens the step's browser visualizer, which steps through the algorithm one comparison at a time.
+// The visualizer is written by the step's program, so press Run first. The button is shown only for steps that have one.
+const visualizeButton = document.createElement("button");
+visualizeButton.textContent = "Visualize";
+visualizeButton.className = testButton.className;
+visualizeButton.title = "Open this step's visualizer in your browser";
+visualizeButton.classList.add("hidden");
+testButton.after(visualizeButton);
+visualizeButton.addEventListener("click", () => {
+  invoke("open_visualizer", { path: selectedStep.path }).catch((error) => appendNote(`${error}\n`, "stderr"));
+});
+
 // Source files: a step can have several .cpp and .h files. The drop-down above the editor picks one, and main.cpp is the default.
 const fileSelect = document.createElement("select");
 fileSelect.id = "file-select";
@@ -130,6 +142,7 @@ function updateButtons() {
   // While a program runs, the Run button stays visible, because it has become Stop.
   runButton.classList.toggle("hidden", testOnly && !running);
   testButton.classList.toggle("hidden", !hasTests);
+  visualizeButton.classList.toggle("hidden", !(selectedStep && selectedStep.has_visualizer));
   const ready = !running && Boolean(selectedStep) && selectedStep.has_code && !spoilerHidden;
   // While a program runs, the Run button is Stop, and it stays enabled so the program can be stopped.
   runButton.innerHTML = running ? "&#9632; Stop" : "&#9654; Run";
@@ -145,9 +158,30 @@ function updateButtons() {
   commandPick.classList.toggle("hidden", running || !ready || stepCommands.length <= 1);
 }
 
+// Parts group the chapters. Only one part is open at a time: opening a part closes the others. No part starts open.
+let parts = [];
+let openPart = null;
+
 function renderChapters() {
   chaptersEl.replaceChildren();
-  for (const chapter of chapters) {
+  for (const part of parts) {
+    const expanded = openPart === part.title;
+    const partRow = document.createElement("div");
+    partRow.className = "part" + (expanded ? " open" : "");
+    const partChevron = document.createElement("span");
+    partChevron.className = "chevron";
+    partChevron.textContent = "\u25B8";
+    const partLabel = document.createElement("span");
+    partLabel.textContent = part.title;
+    partRow.append(partChevron, partLabel);
+    partRow.addEventListener("click", () => {
+      openPart = expanded ? null : part.title;
+      renderChapters();
+    });
+    chaptersEl.appendChild(partRow);
+    if (!expanded) continue;
+
+    for (const chapter of part.chapters) {
     const row = document.createElement("div");
     row.className = "chapter";
     if (chapter === selectedChapter) row.classList.add("open");
@@ -200,6 +234,7 @@ function renderChapters() {
       });
       chaptersEl.appendChild(homework);
     }
+    }
   }
 }
 
@@ -219,6 +254,7 @@ function renderSteps() {
 }
 
 function selectSection(chapter, section) {
+  revealPartOf(chapter);
   selectedChapter = chapter;
   selectedSection = section;
   homeworkMode = false;
@@ -228,6 +264,7 @@ function selectSection(chapter, section) {
 }
 
 async function selectHomework(chapter) {
+  revealPartOf(chapter);
   selectedChapter = chapter;
   homeworkMode = true;
   selectedSection = null;
@@ -263,7 +300,14 @@ async function showOverview(path, key, title, subtitle) {
   invoke("set_lesson", { title, text: lessonText });
 }
 
+// Opening a chapter, section, homework, or step opens the part it belongs to, closing the others, so the selection is visible.
+function revealPartOf(chapter) {
+  const owner = parts.find((part) => part.chapters.includes(chapter));
+  if (owner) openPart = owner.title;
+}
+
 function selectChapter(chapter) {
+  revealPartOf(chapter);
   selectedChapter = chapter;
   selectedSection = null;
   homeworkMode = false;
@@ -301,6 +345,7 @@ listen("goto", (event) => {
 });
 
 async function selectStep(chapter, step) {
+  revealPartOf(chapter);
   // A program that is still running belongs to the step being left, so stop it before showing the new one.
   if (running) await stop();
   selectedChapter = chapter;
@@ -776,9 +821,12 @@ drag(document.querySelector("#split-source"), (event) => {
   root.setProperty("--source-height", `${height}px`);
 });
 
-invoke("list_chapters")
+invoke("list_parts")
   .then((result) => {
-    chapters = result;
+    parts = result;
+    // No part starts open, so the menu opens showing only the part headings.
+    openPart = null;
+    chapters = result.flatMap((part) => part.chapters);
     renderChapters();
   })
   .catch((error) => appendOutput(`${error}\n`, "stderr"));

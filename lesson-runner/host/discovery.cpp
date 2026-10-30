@@ -12,6 +12,7 @@
 #include <utility>
 
 namespace fs = std::filesystem;
+using json = nlohmann::json;
 
 namespace lesson {
 namespace {
@@ -37,6 +38,12 @@ const std::pair<std::string_view, std::string_view> kSpecialWords[] = {
 // Hyphenated phrases that keep their hyphen in titles, such as "Re-exporting".
 const std::pair<std::string_view, std::string_view> kSpecialPhrases[] = {
     {"re-exporting", "Re-exporting"},
+};
+
+// Phrases that appear inside a folder name and become a spaced title, such as "big-o" becoming "Big O". The
+// replacement has no hyphen, so the title is split into words as usual. Matching ignores case.
+const std::pair<std::string_view, std::string_view> kInlinePhrases[] = {
+    {"big-o", "Big O"},
 };
 
 std::string lowercase(std::string_view text) {
@@ -138,6 +145,28 @@ std::string chapter_title(std::string_view name, unsigned number) {
     return std::format("Ch{:02} \u00B7 {}", number, join(words, " "));
 }
 
+// Replaces each inline phrase that appears as whole words in a name, so its hyphens don't split it apart.
+std::string protect_phrases(std::string text) {
+    for (const auto& [from, to] : kInlinePhrases) {
+        const std::string key(from);
+        std::size_t at = 0;
+        while (at < text.size()) {
+            const std::size_t found = lowercase(text).find(key, at);
+            if (found == std::string::npos) break;
+            const std::size_t end = found + key.size();
+            const bool starts_word = found == 0 || text[found - 1] == '-';
+            const bool ends_word = end == text.size() || text[end] == '-';
+            if (starts_word && ends_word) {
+                text.replace(found, key.size(), to);
+                at = found + to.size();
+            } else {
+                at = found + 1;
+            }
+        }
+    }
+    return text;
+}
+
 // A step title such as "Hello world", from a folder name such as 02-hello-world. Only the first word is
 // capitalized, except for words on the lists, which are capitalized wherever they appear.
 std::string step_title(std::string_view name) {
@@ -150,7 +179,7 @@ std::string step_title(std::string_view name) {
     }
 
     std::vector<std::string> words;
-    for (const std::string& word : split_words(rest)) {
+    for (const std::string& word : split_words(protect_phrases(std::string(rest)))) {
         if (auto special = special_word(word)) {
             words.push_back(*special);
         } else if (!words.empty()) {
@@ -240,6 +269,7 @@ std::vector<Step> steps_in(const fs::path& folder) {
         step.has_code = fs::is_regular_file(path / "CMakeLists.txt", ignored);
         step.has_tests = has_tests;
         step.has_main = has_main;
+        step.has_visualizer = fs::is_regular_file(path / "visualize.html", ignored);
         steps.push_back(std::move(step));
     }
 
@@ -319,6 +349,56 @@ std::vector<Chapter> discover(const fs::path& root) {
     return chapters;
 }
 
+nlohmann::json list_parts(const fs::path& root) {
+    const std::vector<Chapter> chapters = discover(root);
+    std::vector<bool> used(chapters.size(), false);
+
+    // parts.json is optional. Without it, or if it can't be read, every chapter ends up under "Other".
+    json config = json::object();
+    std::ifstream in(root / "parts.json");
+    if (in) {
+        try {
+            config = json::parse(in);
+        } catch (const json::exception&) {
+            config = json::object();
+        }
+    }
+
+    auto findChapter = [&chapters](const std::string& name) -> int {
+        for (std::size_t i = 0; i < chapters.size(); ++i) {
+            if (chapters[i].name == name) return static_cast<int>(i);
+        }
+        return -1;
+    };
+
+    json parts = json::array();
+    if (config.contains("parts") && config.at("parts").is_array()) {
+        for (const json& part : config.at("parts")) {
+            json group{{"title", part.value("title", "")}, {"chapters", json::array()}};
+            for (const json& nameValue : part.value("chapters", json::array())) {
+                const int index = findChapter(nameValue.get<std::string>());
+                if (index < 0 || used[static_cast<std::size_t>(index)]) continue;
+                used[static_cast<std::size_t>(index)] = true;
+                group["chapters"].push_back(json(chapters[static_cast<std::size_t>(index)]));
+            }
+            if (!group["chapters"].empty()) parts.push_back(group);
+        }
+    }
+
+    json other = json::array();
+    for (std::size_t i = 0; i < chapters.size(); ++i) {
+        if (!used[i]) other.push_back(json(chapters[i]));
+    }
+    if (!other.empty()) {
+        parts.push_back(json{{"title", "Other"}, {"chapters", other}});
+    }
+    return parts;
+}
+
+std::filesystem::path work_root(const fs::path& repo_root) {
+    return repo_root / ".lesson-runner" / "work";
+}
+
 void to_json(nlohmann::json& j, const Step& step) {
     j = {
         {"name", step.name},
@@ -327,6 +407,7 @@ void to_json(nlohmann::json& j, const Step& step) {
         {"has_code", step.has_code},
         {"has_tests", step.has_tests},
         {"has_main", step.has_main},
+        {"has_visualizer", step.has_visualizer},
     };
 }
 

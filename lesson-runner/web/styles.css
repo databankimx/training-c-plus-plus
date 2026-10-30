@@ -28,6 +28,8 @@
   --tok-attribute: #9cdcfe;
   --truth-true: #6a9955;
   --truth-false: #f48771;
+  --inline-code: #dcdcaa;
+  --inline-code-bg: rgba(255, 255, 255, 0.08);
   font-family: "Segoe UI", system-ui, sans-serif;
   font-size: 14px;
 }
@@ -60,6 +62,8 @@ body.light {
   --tok-attribute: #001080;
   --truth-true: #008000;
   --truth-false: #cd3131;
+  --inline-code: #795e26;
+  --inline-code-bg: rgba(0, 0, 0, 0.06);
 }
 
 * { box-sizing: border-box; }
@@ -767,7 +771,22 @@ body.light .editor::selection { background: rgba(173, 214, 255, 0.7); }
 .markdown td.truth-true { color: var(--truth-true); font-weight: 600; }
 .markdown td.truth-false { color: var(--truth-false); font-weight: 600; }
 
+/* Inline code, in single backticks, is styled like VS Code's inline code: a pale yellow monospace label on a faint pill. Code blocks keep their own colours. */
+.markdown :not(pre) > code {
+  color: var(--inline-code);
+  background: var(--inline-code-bg);
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-family: Consolas, "Cascadia Mono", monospace;
+  font-size: 0.92em;
+}
+
 /* Output files: View buttons float over the bottom of the Output text, in the accent blue used by the logo. */
+/* Part headings in the chapters pane. A part's chevron points down while its chapters are shown. */
+.part { display: flex; align-items: center; gap: 6px; padding: 6px 10px; font-weight: 600; cursor: pointer; user-select: none; }
+.part .chevron { display: inline-block; transition: transform 120ms; }
+.part.open .chevron { transform: rotate(90deg); }
+
 .output-files-anchor { position: relative; height: 0; }
 .output-files { position: absolute; right: 14px; bottom: 8px; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; z-index: 5; }
 .view-file { background: #437dff; color: #fff; border: none; border-radius: 4px; font-size: 12px; padding: 4px 10px; cursor: pointer; }

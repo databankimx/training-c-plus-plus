@@ -6,6 +6,12 @@ Commands are for **Windows PowerShell**, and assume you're in the repository roo
 
 ---
 
+## Where to clone the repository
+
+Clone the repository under `C:\Development`, for example `C:\Development\training\training-cpp`. The lesson runner builds and runs each exercise inside the repository, in a folder called `.lesson-runner`. Security software on managed machines is set up to allow that folder when it's under `C:\Development`. A copy somewhere else, such as your Downloads folder or a temporary folder, may have its new programs removed as they're built.
+
+---
+
 ## Quick setup with the script
 
 `setup.ps1` checks the toolchain, downloads the vendored libraries, makes the runner's icon, and builds the runner. It's safe to run more than once.
@@ -127,9 +133,10 @@ The first run of each step builds it, so it can take several seconds.
 | The setup script says MSYS2 isn't installed | Install MSYS2 to `C:\msys64` (step 1). |
 | The setup script says a package is missing | Run it again with `-InstallMissing`, or run the pacman command it shows, in the MSYS2 UCRT64 shell. |
 | `g++` is version 13 or earlier | Run `pacman -Syu` in the MSYS2 UCRT64 shell, then open a new shell. |
-| The runner says `Could not start a build tool` | The toolchain isn't in `C:\msys64\ucrt64\bin`. Check step 2, then restart the runner. |
+| The runner says `Could not start CMake` or `Could not start CTest` | The build tool isn't in `C:\msys64\ucrt64\bin`. Check step 2, then restart the runner. |
 | Run says the step didn't build a program | The step's `CMakeLists.txt` should build an executable called `program`. This is a problem in the step, not in your setup. |
 | The runner window doesn't open | Check that `lesson-runner\build\host\WebView2Loader.dll` exists. If it doesn't, run `cmake --build build\host` in `lesson-runner`. |
+| Run says the program couldn't start with "Access is denied", or the program is missing right after a build | Check that the repository is under `C:\Development`. If it is, report the step and the full error text, since your security software may be removing the new program. |
 | The window opens with no icons, or the chapters don't load | Press **F12** in the window, and check the Console tab for the first error. Send it to the development team. |
 | The Output pane shows a `.WebView2` folder next to the runner | That's the browser's data folder, created on first run. It's normal, and can be ignored. |
 

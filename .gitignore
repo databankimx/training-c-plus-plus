@@ -3,6 +3,7 @@ build/
 **/build/
 
 # Runner state and browser data.
+.lesson-runner/
 *.WebView2/
 lesson-runner/*.WebView2/
 lesson-runner.exe.WebView2/

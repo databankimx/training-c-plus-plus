@@ -19,6 +19,7 @@ struct Step {
     bool has_code = false;
     bool has_tests = false;
     bool has_main = false;
+    bool has_visualizer = false;
 };
 
 struct Section {
@@ -44,6 +45,14 @@ std::filesystem::path find_repo_root(const std::filesystem::path& start);
 
 // Every chapter folder in the repository, in chapter order.
 std::vector<Chapter> discover(const std::filesystem::path& root);
+
+// The chapters grouped by the parts named in parts.json at the repository root. Chapters that no part names
+// are grouped under "Other", and parts with no chapters are left out.
+nlohmann::json list_parts(const std::filesystem::path& root);
+
+// The folder where runs are built and run: a fixed place inside the repository, so one folder exclusion in a
+// security product covers every run. It is ignored by git.
+std::filesystem::path work_root(const std::filesystem::path& repo_root);
 
 void to_json(nlohmann::json& j, const Step& step);
 void to_json(nlohmann::json& j, const Section& section);

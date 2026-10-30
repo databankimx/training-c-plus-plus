@@ -114,8 +114,8 @@ std::vector<std::string> read_commands(const fs::path& step) {
     return commands;
 }
 
-void open_file(const std::string& path) {
-    const std::string work = (fs::temp_directory_path() / "lesson-runner" / "work").string();
+void open_file(const std::string& path, const fs::path& work_folder) {
+    const std::string work = work_folder.string();
     if (path.rfind(work, 0) != 0) {
         throw std::runtime_error("Not opening a file outside the run folder: " + path);
     }

@@ -32,6 +32,9 @@ void Router::SetWindowAction(std::function<void(const std::string& action)> acti
 
 json Router::handle(const std::string& command, const json& args) {
     // Lesson and step reading.
+    if (command == "list_parts") {
+        return list_parts(root_);
+    }
     if (command == "list_chapters") {
         return json(discover(root_));
     }
@@ -77,8 +80,17 @@ json Router::handle(const std::string& command, const json& args) {
         events_("goto", string_arg(args, "name"));
         return nullptr;
     }
+    if (command == "open_visualizer") {
+        // The visualizer is copied into the run's work folder on each run, so it is opened from there, beside the trace.
+        const fs::path page = work_root(root_) / fs::path(string_arg(args, "path")).filename() / "visualize.html";
+        if (!fs::is_regular_file(page)) {
+            throw std::runtime_error("Run this step once, so its trace is written, then press Visualize.");
+        }
+        open_file(page.string(), work_root(root_));
+        return nullptr;
+    }
     if (command == "open_file") {
-        open_file(string_arg(args, "path"));
+        open_file(string_arg(args, "path"), work_root(root_));
         return nullptr;
     }
     if (command == "open_external") {
