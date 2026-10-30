@@ -8,7 +8,8 @@ The steps are:
 * [Arithmetic](#goto/02-arithmetic): the operators, integer and decimal division, converting between types, printing decimals neatly, and the math functions.
 * [Strings](#goto/03-strings): an introduction to text, with the basics. We come back to strings in more depth later.
 * [User input](#goto/04-user-input): reading a line of text and reading numbers from the user.
-* [Summary](#goto/05-summary): a recap of the chapter and a short quiz. The homework is listed under the chapter.
+* [Command-line arguments](#goto/05-command-line-arguments): receiving values when the program starts, and converting them.
+* [Summary](#goto/06-summary): a recap of the chapter and a short quiz. The homework is listed under the chapter.
 
 ---
 

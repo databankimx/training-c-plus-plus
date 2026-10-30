@@ -119,8 +119,9 @@ Work through these once, to confirm each kind of example runs.
 | Program that waits for input | Ch02, User input | A prompt. Type a line in the input box, and press Enter |
 | Stopping a run | Ch02, User input | Press Run, then **Stop (Esc)** before typing. The Run button comes back |
 | Quick picks | Ch01, Hello world | The Quick picks box stays hidden, since the step has one command |
+| Test button | Ch21, Running tests | `PASS` lines, then `Failures: 0`. Press **Test** |
 
-The course has no test steps yet. The runner's own test steps, which exercise the Test button and the other run modes, are in `resources\runner-test-steps`.
+The runner's own test steps, which exercise each kind of run, are in `resources\runner-test-steps`.
 
 The first run of each step builds it, so it can take several seconds.
 

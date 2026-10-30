@@ -10,4 +10,4 @@ The steps are:
 
 ---
 
-*This chapter is a placeholder for the runner's test steps. It'll be replaced by the course's real Chapter 1.*
+*These steps exist only to check the lesson runner. They aren't part of the course.*

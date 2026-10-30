@@ -244,6 +244,18 @@ bool cmake_declares_tests(const fs::path& step) {
     return text.str().find("add_test(") != std::string::npos;
 }
 
+// The label shown above a chapter's homework. It's "Homework" unless the homework folder has a title.txt, whose first
+// line replaces it, such as "Create a Calculator".
+std::string homework_title(const fs::path& homework) {
+    std::ifstream in(homework / "title.txt");
+    std::string line;
+    if (in && std::getline(in, line)) {
+        while (!line.empty() && std::isspace(static_cast<unsigned char>(line.back()))) line.pop_back();
+        if (!line.empty()) return line;
+    }
+    return "Homework";
+}
+
 // The steps in a folder: each sub-folder with a lesson.md or a CMakeLists.txt, except sections and homework.
 std::vector<Step> steps_in(const fs::path& folder) {
     std::vector<Step> steps;
@@ -337,6 +349,7 @@ std::vector<Chapter> discover(const fs::path& root) {
         chapter.steps = steps_in(path);
         chapter.homework = steps_in(path / "homework");
         chapter.homework_path = (path / "homework").string();
+        chapter.homework_title = homework_title(path / "homework");
         chapter.sections = sections_in(path, *number);
         found.emplace_back(*number, std::move(chapter));
     }
@@ -467,6 +480,7 @@ void to_json(nlohmann::json& j, const Chapter& chapter) {
         {"steps", chapter.steps},
         {"homework", chapter.homework},
         {"homework_path", chapter.homework_path},
+        {"homework_title", chapter.homework_title},
         {"sections", chapter.sections},
     };
 }

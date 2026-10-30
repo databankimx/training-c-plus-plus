@@ -44,6 +44,7 @@ struct Chapter {
     std::vector<Step> steps;
     std::vector<Step> homework;
     std::string homework_path;
+    std::string homework_title;  // The label above the homework list. It's "Homework" unless the folder says otherwise.
     std::vector<Section> sections;
 };
 

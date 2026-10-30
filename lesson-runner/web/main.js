@@ -267,7 +267,7 @@ function renderChapters() {
       homeworkChevron.className = "chevron";
       homeworkChevron.textContent = "\u25B8";
       const homeworkLabel = document.createElement("span");
-      homeworkLabel.textContent = "Homework";
+      homeworkLabel.textContent = chapter.homework_title;
       homework.append(homeworkChevron, homeworkLabel);
       homework.addEventListener("click", (event) => {
         event.stopPropagation();
@@ -281,7 +281,7 @@ function renderChapters() {
 
 function renderSteps() {
   stepsEl.replaceChildren();
-  document.querySelector(".steps-heading").textContent = homeworkMode ? "Homework" : "Steps";
+  document.querySelector(".steps-heading").textContent = homeworkMode && selectedChapter ? selectedChapter.homework_title : "Steps";
   if (!selectedChapter) return;
   const items = homeworkMode ? selectedChapter.homework : selectedSection ? selectedSection.steps : selectedChapter.steps;
   for (const step of items) {
@@ -312,7 +312,7 @@ async function selectHomework(chapter) {
   output.replaceChildren();
   selectedStep = null;
   spoilerHidden = false;
-  titleEl.textContent = "Homework";
+  titleEl.textContent = chapter.homework_title;
   subtitleEl.textContent = chapter.title;
   renderChapters();
   renderSteps();
@@ -322,7 +322,7 @@ async function selectHomework(chapter) {
   lessonText = await invoke("read_lesson", { path: chapter.homework_path });
   renderLesson();
   showLessonAt("homework:" + chapter.homework_path);
-  invoke("set_lesson", { title: `${chapter.title} · Homework`, text: lessonText });
+  invoke("set_lesson", { title: `${chapter.title} · ${chapter.homework_title}`, text: lessonText });
 }
 
 // Selecting a chapter or section shows its overview lesson, if it has one.
@@ -399,7 +399,7 @@ async function selectStep(chapter, step) {
   selectedStep = step;
   renderStepOptions(step);
   titleEl.textContent = step.title;
-  subtitleEl.textContent = homeworkMode ? `${chapter.title} · Homework` : selectedSection ? selectedSection.title : chapter.title;
+  subtitleEl.textContent = homeworkMode ? `${chapter.title} · ${chapter.homework_title}` : selectedSection ? selectedSection.title : chapter.title;
   spoilerHidden = homeworkMode && !isRevealed(step);
   renderChapters();
   renderSteps();

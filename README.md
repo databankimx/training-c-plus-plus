@@ -17,6 +17,14 @@ This repository is provided for training and reference purposes only. DataBank I
 
 ---
 
+## A note on editors
+
+This tutorial uses Visual Studio Code throughout. You're welcome to use whichever IDE you prefer, but that choice assumes you're already comfortable with your editor, including its debugger and build tools. Some lessons give steps specific to VS Code, such as setting a breakpoint or starting the debugger. If you use another IDE, you'll need to find the matching steps in its documentation.
+
+The lesson runner, the build, and the tests don't depend on VS Code, so you can work through the course with any editor.
+
+---
+
 ## About
 
 - **Author:** [Scott McLean](mailto:smclean@databankimx.com)
@@ -123,6 +131,7 @@ The chapter list on the left shows each chapter, such as *Ch01 · Getting Starte
 - If a program asks for input, type in the input box under the Output pane, then press Enter or click **Go**.
 - Press **Escape**, or click **Stop**, to stop a run. The Run button becomes Stop while a program runs.
 - The **Backtrace** checkbox builds with stack-trace support, so a `std::stacktrace` in a step shows function names.
+- Steps that declare options in their `CMakeLists.txt` show a checkbox for each option, next to Backtrace. Each checkbox starts at the default the step declares. Choices are kept while you move between steps, and reset when the runner restarts.
 
 #### Quick picks
 
@@ -187,7 +196,9 @@ training-cpp/
 |- ch21-testing/                    - Chapter 21: checking results, running tests with CTest
 |- ch22-concurrency/                - Chapter 22: threads, join, mutexes, and lock_guard
 |- ch23-build-systems/              - Chapter 23: library targets, and options
-|- ...                           - Further chapters, as they are written
+|- ch24-debugging-and-sanitizers/   - Chapter 24: stack traces, assertions, the debugger, and sanitizers
+|- ch25-modern-features/            - Chapter 25: auto, structured bindings, and std::optional
+|- final-project/                  - The final project: a calculator, with a core and bonus items as homework steps
 |- lesson-runner/                - The desktop lesson runner
 |  |- host/                      - C++ back end: window, router, runner, discovery
 |  |- web/                       - The page: HTML, CSS, JavaScript, and the vendored libraries
@@ -205,8 +216,8 @@ Each chapter folder holds its sections, and each section holds its steps. A step
 |---|---|---|
 | I - Basics | Getting started, variables and input, decisions, arrays, references and pointers, loops | Complete. Chapters 1 to 6 are written |
 | II - Structuring programs | Functions, files, exceptions, structures, classes, inheritance and polymorphism, headers and multiple files | Complete. Chapters 7 to 13 are written |
-| III - Additional topics | Containers, iterators and algorithms, RAII and smart pointers, move semantics, templates, lambdas, testing, concurrency, build systems, debugging and sanitizers, modern features | In progress. Chapters 14 to 23 (containers, efficiency, searching and sorting, RAII and smart pointers, move semantics, templates, lambdas, testing, concurrency, build systems) are written. Next: debugging and sanitizers |
-| Final project | A calculator, in two tracks: a core and bonus items | Planned |
+| III - Additional topics | Containers, iterators and algorithms, RAII and smart pointers, move semantics, templates, lambdas, testing, concurrency, build systems, debugging and sanitizers, modern features | Complete. Chapters 14 to 25 (containers, efficiency, searching and sorting, RAII and smart pointers, move semantics, templates, lambdas, testing, concurrency, build systems, debugging and sanitizers, modern features) are written. The final project is listed at the end of Part III |
+| Final project | A calculator, in two tracks: a core and bonus items | Written. The core calculator, and three bonus items (exponents, square roots, and square and curly brackets), as homework steps with spoiler examples |
 
 The outline is a plan and may change as the lessons are written.
 
@@ -233,6 +244,12 @@ This training curriculum was developed for internal use at DataBank. As with the
 | 10/29/2026 | Chapter 21 added: checking results, and running tests with CTest. Part III is in progress |
 | 10/29/2026 | Chapter 22 added: threads, and mutexes. Part III is in progress |
 | 10/29/2026 | Chapter 23 added: library targets, and options. Part III is in progress |
+| 10/29/2026 | Chapter 24 added: stack traces, assertions, finding bugs with the debugger, and sanitizers. Part III is in progress |
+| 10/29/2026 | Chapter 25 added: auto, structured bindings, and std::optional. Part III is complete |
+| 10/29/2026 | Final project added: a calculator in stages, with core stages 1 to 3 and a bonus stage on parentheses |
+| 10/29/2026 | Final project rebuilt as homework steps with spoiler examples: the core calculator, and bonus items for exponents, square roots, and brackets |
+| 10/29/2026 | Chapter 2 gained a command-line arguments step, and the summary moved to the end. The final project moved into Part III, and its homework is labeled Create a Calculator |
+| 10/30/2026 | Version 1.0: the first complete edition of the course. It covers Parts I to III, with the final project as homework steps under spoiler guards, and the lesson runner. The runner now reads each step's CMake options into checkboxes, and labels homework from a title file. The entries above record the changes that built this edition. |
 
 ---
 

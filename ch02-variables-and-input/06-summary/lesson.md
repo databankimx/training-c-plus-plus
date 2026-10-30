@@ -8,6 +8,7 @@ This chapter covered how a program keeps values, and how it gets them from the p
 * **`std::getline` reads a whole line.** It includes spaces, and it stops at the Enter key.
 * **`std::cin >>` reads one value.** It converts the text into the type of the variable, and it stops at the first space or non-matching character.
 * **Mixing the two needs care.** Reading a line first and then numbers avoids the leftover newline problem.
+* **Command-line arguments arrive before the program starts.** `main(int argc, char* argv[])` receives them, with `argv[0]` holding the program's name and `argv[1]` the first argument. Every argument is text, and `std::stoi` converts it when you ask.
 * **Flush prompts.** `std::flush` sends the prompt to the screen before the program waits for an answer.
 * **Strings hold text.** `std::string` is created with double quotes, joined with `+`, and grown with `+=`. `size()` gives the length, and positions start at 0.
 * **Numeric types differ in precision.** `double` keeps about fifteen significant digits, and `float` about six or seven. `char` holds a small number, its ASCII code, and prints as a letter.
