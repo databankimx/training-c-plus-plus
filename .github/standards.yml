@@ -1,0 +1,13 @@
+# DataBank Standards Policy Configuration
+# See Custom-Dev-Developer-Guide.md for full rule documentation.
+#
+# resources/vendor holds fetch scripts and licenses for third-party libraries
+# (nlohmann/json, WebView2) that are downloaded by setup.ps1.
+# lesson-runner/web/vendor holds third-party JavaScript (marked, viz).
+# They are not our code and are excluded from standards enforcement.
+cpp:
+  excluded_globs:
+    - "**/resources/vendor/**"
+    - "**/lesson-runner/web/vendor/**"
+    - "**/build/**"
+    - "**/.lesson-runner/**"
