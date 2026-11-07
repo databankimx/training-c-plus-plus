@@ -472,7 +472,7 @@ async function loadSourceFile(step, file) {
   if (currentFile === "main.cpp" && !editor.readOnly) mainDraft = editor.value;
   currentFile = file;
   fileSelect.value = file;
-  const text = await invoke("read_source", { path: step.path, file });
+  const text = (await invoke("read_source", { path: step.path, file })).replace(/\r\n/g, "\n");
   if (file === "main.cpp") {
     originalMain = text;
     editor.value = mainDraft ?? text;
