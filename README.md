@@ -115,9 +115,68 @@ All dependencies and third-party components used in this training repository are
 
 For questions about licensing compliance, see the [Development Rules of Engagement](development-rules-of-engagement.md), section 12.
 
-### VS Code
+## Using VS Code
 
-Install the **C/C++** extension (publisher `Microsoft`). It checks your code as you type, and offers completion and navigation.
+The lessons work in any editor, but this section covers Visual Studio Code, which the course is written for. The steps are also in [QUICKSTART.md](QUICKSTART.md).
+
+### Install the extension
+
+Open a `.cpp` file from a lesson. VS Code offers to install the **C/C++ Extension Pack** (publisher Microsoft). Accept it, or install it from the Extensions view by searching for "C/C++ Extension Pack".
+
+The pack includes CMake Tools. When it asks for a kit, choose **GCC 16.2.0 x86_64-w64-mingw32 (ucrt64)**, the MSYS2 compiler the course uses. Don't choose **[Scan for kits]** or **[Unspecified]**, since they can select a different compiler.
+
+CMake Tools may report that it activated the runner's project in `lesson-runner`. That message is informational, and you can dismiss it.
+
+Restart VS Code after `setup.ps1` has run, so it picks up the MSYS2 folder on your user PATH. Open the repository root in VS Code, not a sub-folder.
+
+### Single-file lessons
+
+Open the lesson's `.cpp` file, then:
+
+- **Build:** Ctrl+Shift+B.
+- **Build and run:** Terminal > Run Task > `C/C++: run active file`. The program's output appears in the terminal.
+- **Debug:** press F5, and choose `Debug active C++ file (MSYS2 gdb)`. Click in the gutter first, if you want a breakpoint.
+
+These compile only the file that's open, so they work for lessons with one source file.
+
+### Multiple-file lessons
+
+Some lessons use more than one source file, such as Chapter 13 (headers). The build and run tasks compile only the open file, so they report `undefined reference` errors for functions in the other files. That's expected.
+
+Build and run these lessons through the lesson runner: open the step and press **Run**. The runner builds every file the step's `CMakeLists.txt` lists.
+
+In VS Code, open any `.cpp` file in the step's `src` folder, then use Terminal > Run Task:
+
+- `C/C++: build lesson (CMake)` configures and builds the step's project.
+- `C/C++: run lesson (CMake)` builds it, then runs the program.
+
+The runner also works for these lessons: open the step and press **Run**.
+
+To build from a terminal instead, open a terminal in the step's folder and run:
+
+```pwsh
+cd C:\Development\training\training-c-plus-plus\ch13-headers\02-include-guards
+cmake -S . -B build -G Ninja -DCMAKE_CXX_COMPILER=g++
+cmake --build build
+.\build\program.exe
+```
+
+Replace the `cd` path with the step's own folder. The `-S .` argument must point at the folder that holds the step's `CMakeLists.txt`.
+
+### Messages you can ignore
+
+- `"main.cpp" not found in ... compile_commands.json ... c_cpp_properties.json will be used`. The editor's settings cover the lesson's files, so this is informational.
+- `CMake Tools detected and activated the project`. This is informational.
+
+### Troubleshooting
+
+| What you see | What to do |
+|---|---|
+| `The preLaunchTask ... terminated with exit code -1` | Restart VS Code. Setup adds the MSYS2 folder to your user PATH, and VS Code only sees that after a restart. |
+| `libgcc_s_seh-1.dll was not found` | The MSYS2 folder isn't on your user PATH. Run `setup.ps1 -InstallMissing` again, then restart VS Code. |
+| `undefined reference to ...` in a single-file build | The lesson has more than one source file. Build it through the lesson runner, or use the CMake tasks above. |
+| The debug list shows only `(Windows) Launch`, or no gdb | gdb isn't installed. Run `setup.ps1 -InstallMissing` again. |
+| The kit list shows only Scan, Unspecified, or a different GCC | Choose the GCC 16.2.0 ucrt64 kit. If it isn't listed, run the kit scan from the CMake Tools menu, then choose it. |
 
 ---
 
@@ -185,7 +244,7 @@ cmake --build build
 ## Repository structure
 
 ```
-training-cpp/
+training-c-plus-plus/
 |- ch01-getting-started/         - Chapter 1: setup, the first programs, and the summary
 |- ch02-variables-and-input/     - Chapter 2: variables, arithmetic, strings, and input
 |- ch03-decisions/               - Chapter 3: booleans, logical operators, if statements, and switch

@@ -24,7 +24,10 @@ resources/vendor/nlohmann-json/VERSION.txt
 lesson-runner/host/app.ico
 
 # Editor and IDE settings.
-.vscode/
+# Build and debug tasks are shared with students. Machine-specific settings stay ignored.
+.vscode/*
+!.vscode/tasks.json
+!.vscode/launch.json
 .idea/
 *.user
 
