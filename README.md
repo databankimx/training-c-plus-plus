@@ -234,6 +234,7 @@ The runner's source code is in `lesson-runner/host` (the C++ back end) and `less
 Each step with code is a CMake project. From a terminal, in the step's folder:
 
 ```pwsh
+cd C:\Development\training\training-c-plus-plus\ch13-headers\02-include-guards
 cmake -S . -B build -G Ninja -DCMAKE_CXX_COMPILER=g++
 cmake --build build
 .\build\program.exe
@@ -282,7 +283,7 @@ training-c-plus-plus/
 
 Each chapter folder holds its sections, and each section holds its steps. A step is a folder with a `lesson.md`, and a `CMakeLists.txt` if it has code. Steps appear in the order of their names, so the number prefix keeps them in order.
 
-### Course outline (in progress)
+### Course outline
 
 | Part | Chapters | Status |
 |---|---|---|
@@ -322,6 +323,7 @@ This training curriculum was developed for internal use at DataBank. As with the
 | 10/29/2026 | Final project rebuilt as homework steps with spoiler examples: the core calculator, and bonus items for exponents, square roots, and brackets |
 | 10/29/2026 | Chapter 2 gained a command-line arguments step, and the summary moved to the end. The final project moved into Part III, and its homework is labeled Create a Calculator |
 | 10/30/2026 | Version 1.0: the first complete edition of the course. It covers Parts I to III, with the final project as homework steps under spoiler guards, and the lesson runner. The runner now reads each step's CMake options into checkboxes, and labels homework from a title file. The entries above record the changes that built this edition. |
+| 11/07/2026 | Setup script and VS Code tasks: setup.ps1 installs Git and MSYS2 when asked, clones the repository, adds the MSYS2 folder to the user PATH, and installs gdb. The C++ build, run, and debug tasks and the multi-file CMake tasks are added in .vscode. The README and QUICKSTART describe them. Chapter 24's sanitizers lesson uses GCC's static analyzer (-fanalyzer), which reports double free and use after free. The runner's modified flag now ignores line-ending differences |
 
 ---
 
