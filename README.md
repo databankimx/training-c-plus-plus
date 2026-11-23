@@ -10,44 +10,45 @@ This repository is provided for training and reference purposes only. DataBank I
 
 ## What is this repository for?
 
-- C++ developer training curriculum for DataBank IMX, covering the language from first programs through the standard library, with a focus on reading and converting existing C++ code
-- Chapter-by-chapter lessons, with code you can edit and run, and short quizzes
-- A final project: a calculator built in stages, with a core track and a bonus track, each with a worked example
-- A desktop lesson runner, built with C++, that lets you read lessons, edit and run each step, and run its tests
+* C++ developer training curriculum for DataBank IMX, covering the language from first programs through the standard library, with a focus on reading and converting existing C++ code
+* Chapter-by-chapter lessons, with code you can edit and run, and short quizzes
+* A final project: a calculator built in stages, with a core track and a bonus track, each with a worked example
+* A desktop lesson runner, built with C++, that lets you read lessons, edit and run each step, and run its tests
 
 ---
 
-## A note on editors
+## Who is this for?
 
-This tutorial uses Visual Studio Code throughout. You're welcome to use whichever IDE you prefer, but that choice assumes you're already comfortable with your editor, including its debugger and build tools. Some lessons give steps specific to VS Code, such as setting a breakpoint or starting the debugger. If you use another IDE, you'll need to find the matching steps in its documentation.
-
-The lesson runner, the build, and the tests don't depend on VS Code, so you can work through the course with any editor.
+* DataBank IMX developers who need to read, convert, or maintain C++ code
+* Developers who are new to C++ and have some experience with another programming language
 
 ---
 
 ## About
 
-- **Author:** [Scott McLean](mailto:smclean@databankimx.com)
-- **Purpose:** Internal developer training curriculum for DataBank IMX
+* **Author:** [Scott McLean](mailto:smclean@databankimx.com)
+* **Purpose:** Internal developer training curriculum for DataBank IMX
 
 ---
 
 ## DataBank Responsibilities for Custom Code
 
-All DataBank employees - including those working with AI-assisted tools - are bound by the [Development Rules of Engagement](development-rules-of-engagement.md). That document defines the rules for quoting, approving, developing, reviewing, scanning, storing, and delivering custom code for client work.
+All DataBank employees - including those working with AI-assisted tools - are bound by the Development Rules of Engagement, published as the [development-rules-of-engagement.pdf](https://databankimx.sharepoint.com/:b:/r/sites/Hub-PS/DevTools/Policies/development-rules-of-engagement.pdf?d=w1c01477e09e048acbe4c96eba851a183&csf=1&web=1&e=uL7JEw). That document defines the rules for quoting, approving, developing, reviewing, scanning, storing, and delivering custom code for client work.
 
 Key obligations that apply to everyone on every custom code engagement:
 
-- **You own the code you deliver.** This applies equally to hand-written code, AI-assisted code, and AI-generated code. "The AI wrote it" is not an acceptable explanation for a production issue, a failed review, a security finding, or a support problem.
-- **Code must be reviewed before delivery.** Review is interactive and must confirm that the code works, meets DataBank standards, is maintainable, and that the developer understands it well enough to explain, debug, and maintain it. Polished or well-formatted output - including AI-generated output - is not evidence of correctness.
-- **Code must be in source control before delivery.** All custom code must be committed to the appropriate DataBank GitHub Enterprise repository before it is delivered to a client, regardless of whether the client receives source code, compiled binaries, or deployed functionality.
-- **CI scanning must pass before delivery.** Required checks are the standards policy scan, SonarQube, and Snyk. A passing local build is not a substitute.
-- **All third-party dependencies must be license-vetted.** The license must permit closed-source commercial use. Copyleft or unclear licensing must be escalated before use. Dependencies must not be added simply because an AI tool suggested them.
-- **Only approved AI tools may be used.** Use only IT-approved tools through company accounts. All data entered into AI systems is subject to the [DataBank AI Acceptable Use Policy](https://workforcenow.adp.com/mascsr/wfncontenttools/file-management/file/JTJGc3RhdGljJTJGY2xpZW50cyUyRmNvbnRlbnQlMkZBSStBY2NlcHRhYmxlK1VzZStQb2xpY3kucGRmJTNGMTc3MTM0NzA4NjE4MQ==) and must be treated as confidential by default.
-- **Custom code is billable work.** Code must be tied to an approved quote or engagement before commitment or delivery. Development quotes require approval from the Development Director or delegated development leadership before being sent externally.
-- **Exceptions require explicit approval.** Time pressure alone is not a reason to bypass quote approval, source control, review, or CI scanning.
+* **You own the code you deliver.** This applies equally to hand-written code, AI-assisted code, and AI-generated code. "The AI wrote it" is not an acceptable explanation for a production issue, a failed review, a security finding, or a support problem.
+* **Code must be reviewed before delivery.** Review is interactive and must confirm that the code works, meets DataBank standards, is maintainable, and that the developer understands it well enough to explain, debug, and maintain it. Polished or well-formatted output - including AI-generated output - is not evidence of correctness.
+* **Code must be in source control before delivery.** All custom code must be committed to the appropriate DataBank GitHub Enterprise repository before it is delivered to a client, regardless of whether the client receives source code, compiled binaries, or deployed functionality.
+* **CI scanning must pass before delivery.** Required checks are the standards policy scan, SonarQube, and Snyk. A passing local build is not a substitute.
+* **All third-party dependencies must be license-vetted.** The license must permit closed-source commercial use. Copyleft or unclear licensing must be escalated before use. Dependencies must not be added simply because an AI tool suggested them.
+* **Only approved AI tools may be used.** Use only IT-approved tools through company accounts. All data entered into AI systems is subject to the [DataBank AI Acceptable Use Policy](https://workforcenow.adp.com/mascsr/wfncontenttools/file-management/file/JTJGc3RhdGljJTJGY2xpZW50cyUyRmNvbnRlbnQlMkZBSStBY2NlcHRhYmxlK1VzZStQb2xpY3kucGRmJTNGMTc3MTM0NzA4NjE4MQ==) and must be treated as confidential by default.
+* **Custom code is billable work.** Code must be tied to an approved quote or engagement before commitment or delivery. Development quotes require approval from the Development Director or delegated development leadership before being sent externally.
+* **Exceptions require explicit approval.** Time pressure alone is not a reason to bypass quote approval, source control, review, or CI scanning.
 
-See the [Development Rules of Engagement](development-rules-of-engagement.md) for the full policy, including billing and quoting rules, source-code delivery rules, the delivery readiness checklist, and the exception process.
+See the Development Rules of Engagement linked above for the full policy, including billing and quoting rules, source-code delivery rules, the delivery readiness checklist, and the exception process.
+
+> Policy document links point to DataBank internal locations. They may not open for readers outside DataBank IMX.
 
 ---
 
@@ -55,18 +56,18 @@ See the [Development Rules of Engagement](development-rules-of-engagement.md) fo
 
 The lessons follow two references. Both are free, and both are linked from the lessons that use them.
 
-- [Learn C++](https://www.learncpp.com/), by Alex Allain. A complete, free course, organized in the order the lessons follow.
-- *A Tour of C++*, third edition, by Bjarne Stroustrup (Addison-Wesley). A short guide to the language, written by its designer, used in the modern-features chapters.
+* [Learn C++](https://www.learncpp.com/), by Alex Allain. A complete, free course, organized in the order the lessons follow.
+* *A Tour of C++*, third edition, by Bjarne Stroustrup (Addison-Wesley). A short guide to the language, written by its designer, used in the modern-features chapters.
 
-Lessons quote only the short examples they need from these references, and explain the rest in their own words. Before the course is published more widely, the reuse terms of each reference are confirmed.
+Lessons quote only the short examples they need from these references, and explain the rest in their own words.
 
 ---
 
 ## Setup and requirements
 
-- **Windows 10 or 11**, with the WebView2 runtime (included with Windows 11)
-- **MSYS2**, with the UCRT64 toolchain: g++ 14 or later, CMake, and Ninja
-- **VS Code** with the C/C++ extension (recommended), or any editor you prefer
+* **Windows 10 or 11**, with the WebView2 runtime (included with Windows 11)
+* **MSYS2**, with the UCRT64 toolchain: g++ 14 or later, CMake, and Ninja
+* **VS Code** with the C/C++ extension (recommended), or any editor you prefer
 
 See [QUICKSTART.md](QUICKSTART.md) for a step-by-step guide.
 
@@ -75,7 +76,7 @@ See [QUICKSTART.md](QUICKSTART.md) for a step-by-step guide.
 From the repository root, in PowerShell:
 
 ```pwsh
-powershell -ExecutionPolicy Bypass -File .\setup.ps1 -InstallMissing
+pwsh -NoProfile -ExecutionPolicy Bypass -File .\setup.ps1 -InstallMissing
 ```
 
 The script checks the toolchain, downloads the WebView2 SDK and nlohmann/json into `resources\vendor`, makes the runner's icon, and builds the runner. It's safe to run more than once.
@@ -98,23 +99,16 @@ cd lesson-runner
 | nlohmann/json | Lesson runner | Messages between the window and the back end | MIT |
 | marked | Lesson runner (web folder) | Converts lesson Markdown to HTML | MIT |
 | @viz-js/viz | Lesson runner (web folder) | Draws the diagrams in lessons | MIT, which wraps Graphviz (EPL-2.0) |
-| highlight | Lesson runner (web folder) | Syntax coloring in the Source and Lesson panes | Written for this course |
+| highlight | Lesson runner (web folder) | Syntax coloring in the Source and Lesson panes | MIT |
 | ImageMagick, librsvg | Setup only | Makes the runner's icon from the SVG logo. Not linked into any program | Apache 2.0 and LGPL-2.1, used as separate tools |
 
-The GCC runtime exception and the Graphviz license should be reviewed under section 12 of the Development Rules of Engagement before the course leaves the company. The runner itself links only the MIT, BSD, Apache, and Microsoft-licensed components above.
+---
 
 ## Third Party Licenses
 
-All dependencies and third-party components used in this training repository are listed above. They are compatible with closed-source commercial use, with the note that the GCC runtime exception and Graphviz (EPL-2.0) licenses should be reviewed before commercial deployment.
+The runner itself links only the MIT, BSD, Apache, and Microsoft-licensed components listed above. The GCC runtime exception and the Graphviz (EPL-2.0) license need review before commercial deployment. The licensing rules are in the [Development Rules of Engagement](https://databankimx.sharepoint.com/:b:/r/sites/Hub-PS/DevTools/Policies/development-rules-of-engagement.pdf?d=w1c01477e09e048acbe4c96eba851a183&csf=1&web=1&e=uL7JEw) (internal only).
 
-**Key licensing summary:**
-- **Build tools (G++, CMake, Ninja):** GPL-based with exceptions, BSD, and Apache 2.0
-- **Runner UI (WebView2):** Microsoft SDK license
-- **Data handling (nlohmann/json):** MIT
-- **Rendering (marked, @viz-js/viz):** MIT, with Graphviz (EPL-2.0) wrapped
-- **Setup tools (ImageMagick, librsvg):** Apache 2.0 and LGPL-2.1
-
-For questions about licensing compliance, see the [Development Rules of Engagement](development-rules-of-engagement.md), section 12.
+---
 
 ## Using VS Code
 
@@ -134,9 +128,9 @@ Restart VS Code after `setup.ps1` has run, so it picks up the MSYS2 folder on yo
 
 Open the lesson's `.cpp` file, then:
 
-- **Build:** Ctrl+Shift+B.
-- **Build and run:** Terminal > Run Task > `C/C++: run active file`. The program's output appears in the terminal.
-- **Debug:** press F5, and choose `Debug active C++ file (MSYS2 gdb)`. Click in the gutter first, if you want a breakpoint.
+* **Build:** Ctrl+Shift+B.
+* **Build and run:** Terminal > Run Task > `C/C++: run active file`. The program's output appears in the terminal.
+* **Debug:** press F5, and choose `Debug active C++ file (MSYS2 gdb)`. Click in the gutter first, if you want a breakpoint.
 
 These compile only the file that's open, so they work for lessons with one source file.
 
@@ -148,10 +142,8 @@ Build and run these lessons through the lesson runner: open the step and press *
 
 In VS Code, open any `.cpp` file in the step's `src` folder, then use Terminal > Run Task:
 
-- `C/C++: build lesson (CMake)` configures and builds the step's project.
-- `C/C++: run lesson (CMake)` builds it, then runs the program.
-
-The runner also works for these lessons: open the step and press **Run**.
+* `C/C++: build lesson (CMake)` configures and builds the step's project.
+* `C/C++: run lesson (CMake)` builds it, then runs the program.
 
 To build from a terminal instead, open a terminal in the step's folder and run:
 
@@ -166,8 +158,8 @@ Replace the `cd` path with the step's own folder. The `-S .` argument must point
 
 ### Messages you can ignore
 
-- `"main.cpp" not found in ... compile_commands.json ... c_cpp_properties.json will be used`. The editor's settings cover the lesson's files, so this is informational.
-- `CMake Tools detected and activated the project`. This is informational.
+* `"main.cpp" not found in ... compile_commands.json ... c_cpp_properties.json will be used`. The editor's settings cover the lesson's files, so this is informational.
+* `CMake Tools detected and activated the project`. This is informational.
 
 ### Troubleshooting
 
@@ -191,20 +183,20 @@ The lesson runner is a desktop window, built with C++ and WebView2. It lets you 
 
 The chapter list on the left shows each chapter, such as *Ch01 · Getting Started*. Click a chapter to show its steps, then click a step to open it.
 
-- Chapters are listed in order. The final project comes after the numbered chapters.
-- Each step is one folder. A step with a `CMakeLists.txt` has code you can run.
-- Homework appears under its chapter, in its own list.
+* Chapters are listed in order. The final project comes after the numbered chapters.
+* Each step is one folder. A step with a `CMakeLists.txt` has code you can run.
+* Homework appears under its chapter, in its own list.
 
 #### Reading and running a step
 
-- The **Lesson** tab shows the step's lesson, with quizzes.
-- The **Source** tab shows the step's `src/main.cpp`. It's an editor. Edits are kept in the runner until you click **Reset**, and nothing is written to the repository.
-- Press **Run** (or F5) to build and run the step. The build status lines appear in the Output pane, followed by the program's output.
-- Press **Test** to build the step and run its tests, for steps that have them.
-- If a program asks for input, type in the input box under the Output pane, then press Enter or click **Go**.
-- Press **Escape**, or click **Stop**, to stop a run. The Run button becomes Stop while a program runs.
-- The **Backtrace** checkbox builds with stack-trace support, so a `std::stacktrace` in a step shows function names.
-- Steps that declare options in their `CMakeLists.txt` show a checkbox for each option, next to Backtrace. Each checkbox starts at the default the step declares. Choices are kept while you move between steps, and reset when the runner restarts.
+* The **Lesson** tab shows the step's lesson, with quizzes.
+* The **Source** tab shows the step's `src/main.cpp`. It's an editor. Edits are kept in the runner until you click **Reset**, and nothing is written to the repository.
+* Press **Run** (or F5) to build and run the step. The build status lines appear in the Output pane, followed by the program's output.
+* Press **Test** to build the step and run its tests, for steps that have them.
+* If a program asks for input, type in the input box under the Output pane, then press Enter or click **Go**.
+* Press **Escape**, or click **Stop**, to stop a run. The Run button becomes Stop while a program runs.
+* The **Backtrace** checkbox builds with stack-trace support, so a `std::stacktrace` in a step shows function names.
+* Steps that declare options in their `CMakeLists.txt` show a checkbox for each option, next to Backtrace. Each checkbox starts at the default the step declares. Choices are kept while you move between steps, and reset when the runner restarts.
 
 #### Quick picks
 
@@ -223,10 +215,10 @@ Homework steps ask you to write your own program first. The Run button stays dis
 
 #### Troubleshooting
 
-- **The window doesn't open:** check that the toolchain is in `C:\msys64\ucrt64\bin`, and run `setup.ps1` again.
-- **Run says it could not start a build tool:** the MSYS2 toolchain isn't installed, or isn't in that folder.
-- **A step says it didn't build a program:** the step's `CMakeLists.txt` should build an executable called `program`.
-- **The first build is slow:** normal. Later builds are faster.
+* **The window doesn't open:** check that the toolchain is in `C:\msys64\ucrt64\bin`, and run `setup.ps1` again.
+* **Run says it could not start a build tool:** the MSYS2 toolchain isn't installed, or isn't in that folder.
+* **A step says it didn't build a program:** the step's `CMakeLists.txt` should build an executable called `program`.
+* **The first build is slow:** normal. Later builds are faster.
 
 The runner's source code is in `lesson-runner/host` (the C++ back end) and `lesson-runner/web` (the page).
 
@@ -260,19 +252,19 @@ training-c-plus-plus/
 |- ch11-classes/                 - Chapter 11: classes, methods, constructors, and encapsulation
 |- ch12-inheritance/             - Chapter 12: inheritance, protected members, and polymorphism
 |- ch13-headers/                 - Chapter 13: headers, include guards, and multiple files
-|- ch14-containers/               - Chapter 14: vectors, maps, unordered maps, and choosing a container
-|- ch15-efficiency/               - Chapter 15: counting operations, Big-O, and Fibonacci with and without memory
-|- ch16-searching-and-sorting/    - Chapter 16: linear and binary search, the sorts, and the standard library versions
-|- ch17-raii-and-smart-pointers/  - Chapter 17: destructors, unique and shared pointers, and RAII
-|- ch18-move-semantics/           - Chapter 18: copies and moves, std::move, and moving ownership
-|- ch19-templates/                 - Chapter 19: function templates and class templates
-|- ch20-lambdas/                    - Chapter 20: lambda basics, captures, and comparisons for the standard algorithms
-|- ch21-testing/                    - Chapter 21: checking results, running tests with CTest
-|- ch22-concurrency/                - Chapter 22: threads, join, mutexes, and lock_guard
-|- ch23-build-systems/              - Chapter 23: library targets, and options
-|- ch24-debugging-and-sanitizers/   - Chapter 24: stack traces, assertions, the debugger, and sanitizers
-|- ch25-modern-features/            - Chapter 25: auto, structured bindings, and std::optional
-|- final-project/                  - The final project: a calculator, with a core and bonus items as homework steps
+|- ch14-containers/              - Chapter 14: vectors, maps, unordered maps, and choosing a container
+|- ch15-efficiency/              - Chapter 15: counting operations, Big-O, and Fibonacci with and without memory
+|- ch16-searching-and-sorting/   - Chapter 16: linear and binary search, the sorts, and the standard library versions
+|- ch17-raii-and-smart-pointers/ - Chapter 17: destructors, unique and shared pointers, and RAII
+|- ch18-move-semantics/          - Chapter 18: copies and moves, std::move, and moving ownership
+|- ch19-templates/               - Chapter 19: function templates and class templates
+|- ch20-lambdas/                 - Chapter 20: lambda basics, captures, and comparisons for the standard algorithms
+|- ch21-testing/                 - Chapter 21: checking results, running tests with CTest
+|- ch22-concurrency/             - Chapter 22: threads, join, mutexes, and lock_guard
+|- ch23-build-systems/           - Chapter 23: library targets, and options
+|- ch24-debugging-and-sanitizers/ - Chapter 24: stack traces, assertions, the debugger, and sanitizers
+|- ch25-modern-features/         - Chapter 25: auto, structured bindings, and std::optional
+|- final-project/                - The final project: a calculator, with a core and bonus items as homework steps
 |- lesson-runner/                - The desktop lesson runner
 |  |- host/                      - C++ back end: window, router, runner, discovery
 |  |- web/                       - The page: HTML, CSS, JavaScript, and the vendored libraries
@@ -284,16 +276,20 @@ training-c-plus-plus/
 
 Each chapter folder holds its sections, and each section holds its steps. A step is a folder with a `lesson.md`, and a `CMakeLists.txt` if it has code. Steps appear in the order of their names, so the number prefix keeps them in order.
 
-### Course outline
+### Chapters
 
-| Part | Chapters | Status |
-|---|---|---|
-| I - Basics | Getting started, variables and input, decisions, arrays, references and pointers, loops | Complete. Chapters 1 to 6 are written |
-| II - Structuring programs | Functions, files, exceptions, structures, classes, inheritance and polymorphism, headers and multiple files | Complete. Chapters 7 to 13 are written |
-| III - Additional topics | Containers, iterators and algorithms, RAII and smart pointers, move semantics, templates, lambdas, testing, concurrency, build systems, debugging and sanitizers, modern features | Complete. Chapters 14 to 25 (containers, efficiency, searching and sorting, RAII and smart pointers, move semantics, templates, lambdas, testing, concurrency, build systems, debugging and sanitizers, modern features) are written. The final project is listed at the end of Part III |
-| Final project | A calculator, in two tracks: a core and bonus items | Written. The core calculator, and three bonus items (exponents, square roots, and square and curly brackets), as homework steps with spoiler examples |
+* Part I, Basics: getting started, variables and input, decisions, arrays, references and pointers, and loops (Chapters 1 to 6)
+* Part II, Structuring programs: functions, files, exceptions, structures, classes, inheritance and polymorphism, and headers and multiple files (Chapters 7 to 13)
+* Part III, Additional topics: containers, efficiency, searching and sorting, RAII and smart pointers, move semantics, templates, lambdas, testing, concurrency, build systems, debugging and sanitizers, and modern features (Chapters 14 to 25)
+* Final project: a calculator in two tracks, a core and bonus items, placed at the end of Part III
 
-The outline is a plan and may change as the lessons are written.
+---
+
+## Known conflicts and compatibility notes
+
+* The lesson runner and the setup script run on Windows only. They need the MSYS2 UCRT64 toolchain.
+* The VS Code steps are written for Visual Studio Code. The lessons and the runner work in any editor, but you'll need to find the matching build and debug steps in your editor's documentation.
+* Some lessons have more than one source file. A single-file build or run reports `undefined reference` errors for them. Build these through the lesson runner or the CMake tasks.
 
 ---
 
@@ -305,30 +301,16 @@ This training curriculum was developed for internal use at DataBank. As with the
 
 ---
 
-## Version history
+## Release version
 
 | Date | Changes |
 |---|---|
-| 10/29/2026 | Initial version: the lesson runner, the setup and quickstart guides, the authoring guide, a placeholder chapter for checking the runner, and the calculator final-project homework |
-| 10/29/2026 | Chapters 8 to 13 added: files, exceptions, structures, classes, inheritance and polymorphism, and headers and multiple files. Part I is complete |
-| 10/29/2026 | Chapters 14 to 17 added: containers, efficiency, searching and sorting, and RAII and smart pointers. Part III is in progress |
-| 10/29/2026 | Chapter 18 added: copies and moves, and moving ownership. Part III is in progress |
-| 10/29/2026 | Chapter 19 added: function templates and class templates. Part III is in progress |
-| 10/29/2026 | Chapter 20 added: lambda basics, and captures. Part III is in progress |
-| 10/29/2026 | Chapter 21 added: checking results, and running tests with CTest. Part III is in progress |
-| 10/29/2026 | Chapter 22 added: threads, and mutexes. Part III is in progress |
-| 10/29/2026 | Chapter 23 added: library targets, and options. Part III is in progress |
-| 10/29/2026 | Chapter 24 added: stack traces, assertions, finding bugs with the debugger, and sanitizers. Part III is in progress |
-| 10/29/2026 | Chapter 25 added: auto, structured bindings, and std::optional. Part III is complete |
-| 10/29/2026 | Final project added: a calculator in stages, with core stages 1 to 3 and a bonus stage on parentheses |
-| 10/29/2026 | Final project rebuilt as homework steps with spoiler examples: the core calculator, and bonus items for exponents, square roots, and brackets |
-| 10/29/2026 | Chapter 2 gained a command-line arguments step, and the summary moved to the end. The final project moved into Part III, and its homework is labeled Create a Calculator |
-| 10/30/2026 | Version 1.0: the first complete edition of the course. It covers Parts I to III, with the final project as homework steps under spoiler guards, and the lesson runner. The runner now reads each step's CMake options into checkboxes, and labels homework from a title file. The entries above record the changes that built this edition. |
-| 11/07/2026 | Setup script and VS Code tasks: setup.ps1 installs Git and MSYS2 when asked, clones the repository, adds the MSYS2 folder to the user PATH, and installs gdb. The C++ build, run, and debug tasks and the multi-file CMake tasks are added in .vscode. The README and QUICKSTART describe them. Chapter 24's sanitizers lesson uses GCC's static analyzer (-fanalyzer), which reports double free and use after free. The runner's modified flag now ignores line-ending differences |
+| 11/07/2026 | Setup script and VS Code tasks: setup.ps1 installs Git and MSYS2 when asked, clones the repository, adds the MSYS2 folder to the user PATH, and installs gdb. The C++ build, run, and debug tasks and the multi-file CMake tasks are included. Chapter 24's sanitizers lesson uses GCC's static analyzer (-fanalyzer). The runner's modified flag ignores line-ending differences |
+| 10/30/2026 | Version 1.0: the first complete edition, covering Parts I to III, with the final project as homework steps under spoiler guards, and the lesson runner. The runner reads each step's CMake options into checkboxes, and labels homework from a title file |
 
 ---
 
 ## Contact
 
-- [Scott McLean](mailto:smclean@databankimx.com)
-- [Dev Team](mailto:development@databankimx.com)
+* [Scott McLean](mailto:smclean@databankimx.com)
+* [Dev Team](mailto:development@databankimx.com)
