@@ -76,7 +76,7 @@ See [QUICKSTART.md](QUICKSTART.md) for a step-by-step guide.
 From the repository root, in PowerShell:
 
 ```pwsh
-pwsh -NoProfile -ExecutionPolicy Bypass -File .\setup.ps1 -InstallMissing
+powershell -NoProfile -ExecutionPolicy Bypass -File .\setup.ps1 -InstallMissing
 ```
 
 The script checks the toolchain, downloads the WebView2 SDK and nlohmann/json into `resources\vendor`, makes the runner's icon, and builds the runner. It's safe to run more than once.
